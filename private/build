@@ -60,7 +60,7 @@ function initSite {
   if [ ! -d "$BUILDPATH/app" ];
   then
     [ -f "master.tar.gz" ] && rm master.tar.gz
-    curl -O -L "https://bitbucket.org/financeofamerica/pantheon/get/master.tar.gz"
+    curl -O -L "https://github.com/Alquemie/pantheon-wp/archive/master.tar.gz"
     tar $TAR master.tar.gz -C ./ --strip 1
     rm master.tar.gz
 
