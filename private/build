@@ -57,7 +57,7 @@ fi
 ## Check that Site has been Initialized
 function initSite {
   echo "--> INITIALIZE Project Site";
-  if [ ! -d "$BUILDPATH/app" ];
+  if [ ! -d "$BUILDPATH/src" ];
   then
     [ -f "master.tar.gz" ] && rm master.tar.gz
     curl -O -L "https://github.com/Alquemie/pantheon-wp/archive/master.tar.gz"
@@ -71,19 +71,19 @@ function initSite {
 ## Build Site in WEB directory
 function buildSite {
 	echo "--> Merging Project Files to WEB";
-	rsync -aq --exclude ".git*" --exclude "composer.*" $BUILDPATH/app/ $BUILDPATH/web/
+	rsync -aq --exclude ".git*" --exclude "composer.*" $BUILDPATH/src/app/ $BUILDPATH/web/
 }
 
 function cleanBuildLocation {
 
-	if [ -d "$BUILDPATH/web/wp" ]; then
+	if [ -d "$BUILDPATH/web/cms" ]; then
     echo "--> Cleaning WP directory";
-    rm -rf $BUILDPATH/web/wp
+    rm -rf $BUILDPATH/web/cms
   fi
 
-	if [ -d "$BUILDPATH/web/wp-content" ]; then
-    echo "--> Cleaning CONTENT directory";
-    rm -rf $BUILDPATH/web/wp-content
+	if [ -d "$BUILDPATH/web/app" ]; then
+    echo "--> Cleaning APP directory";
+    rm -rf $BUILDPATH/web/app
   fi
 
   if [ -d "$BUILDPATH/web/vendor" ]; then
