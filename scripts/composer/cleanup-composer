@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Exit immediately on errors, and echo commands as they are executed.
+set -ex
+
+if [ -d "web/cms/wp-content/mu-plugins/" ]; then
+  rsync -r web/cms/wp-content/mu-plugins/* web/app/mu-plugins/
+fi
+
+if [ -f "web/cms/wp-config.php" ]; then
+  rm web/cms/wp-config.php
+fi
+
+if [ -d "web/cms/wp-content" ]; then
+  rm -rf web/cms/wp-content
+fi
+
+if [ -d "web/app/plugins/gravityforms" ]; then
+  chmod -R a+r web/app/plugins/gravityforms/
+fi

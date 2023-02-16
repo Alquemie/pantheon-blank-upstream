@@ -1,0 +1,92 @@
+{
+  "name": "alquemie/pantheon-blank-upstream",
+  "description": "Install Wordpress with Composer on Pantheon",
+  "type": "website",
+  "keywords": [],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    },
+    {
+      "type": "composer",
+      "url": "https://alquemie.github.io"
+    },
+    {
+      "type": "path",
+      "url": "upstream-config"
+    }
+  ],
+  "require": {
+    "alquemie/upstream-config": "*"
+  },
+  "config": {
+    "vendor-dir": "vendor",
+    "preferred-install": "dist",
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "platform": {
+      "php": "7.4"
+    },
+    "allow-plugins": {
+      "composer/installers": true,
+      "johnpbloch/wordpress-core-installer": true
+    }
+  },
+  "extra": {
+    "wordpress-install-dir": "web/cms",
+    "build-env": {
+      "install-cms": [
+        "wp core install --title={site-name} --url={site-url} --admin_user={account-name} --admin_email={account-mail} --admin_password={account-pass}",
+        "wp option update permalink_structure '/%postname%/'"
+      ]
+    },
+    "installer-paths": {
+      "web/app/mu-plugins/soil/": ["roots/soil"],
+      "web/app/mu-plugins/wp-password-bcrypt/": ["roots/wp-password-bcrypt"],
+      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
+      "web/app/themes/{$name}/": ["type:wordpress-theme"],
+      "web/private/scripts/quicksilver/{$name}/": ["type:quicksilver-script"]
+    }
+  },
+  "autoload": {
+    "classmap": [
+      "scripts/composer/ScriptHandler.php"
+    ],
+    "psr-4": { "PantheonSystems\\WordHatHelpers\\": "tests/behat/helper_classes/" }
+  },
+  "scripts": {
+    "cleanup": [
+      "./scripts/composer/cleanup-composer"
+    ],
+    "codeinstall": [
+      "./scripts/composer/install-code"
+    ],
+    "post-install-cmd": [
+      "@cleanup",
+      "@codeinstall",
+      "WordPressProject\\composer\\ScriptHandler::createRequiredFiles",
+      "WordPressProject\\composer\\ScriptHandler::forcePlugins"
+    ],
+    "post-update-cmd": [
+      "@cleanup",
+      "@codeinstall",
+      "WordPressProject\\composer\\ScriptHandler::createRequiredFiles",
+      "WordPressProject\\composer\\ScriptHandler::forcePlugins"
+    ],
+    "post-create-project-cmd": [
+      "@cleanup",
+      "@codeinstall",
+      "WordPressProject\\composer\\ScriptHandler::createRequiredFiles",
+      "WordPressProject\\composer\\ScriptHandler::forcePlugins"
+    ],
+    "code-sniff": [
+      "./vendor/bin/phpcs --standard=WordPress ./web/app"
+    ],
+    "unit-test": [
+      "./vendor/bin/phpunit tests/unit/*"
+    ],
+    "lint": "find web/app -name '*.php' -exec php -l {} \\;"
+  }
+}

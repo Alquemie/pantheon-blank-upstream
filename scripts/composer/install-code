@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Exit immediately on errors, and echo commands as they are executed.
+set -e
+
+if [ "$(ls code/web)" ]; then
+  rsync -r code/web/* web/
+fi
+
+if [ "$(ls code/plugins/)" ]; then
+  rsync -r code/plugins/* web/app/plugins/
+fi
+
+if [ "$(ls code/mu-plugins/)" ]; then
+  rsync -r code/mu-plugins/* web/app/mu-plugins/
+fi
+
+if [ "$(ls code/themes/)" ]; then
+  rsync -r code/themes/* web/app/themes/
+fi

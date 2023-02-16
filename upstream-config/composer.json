@@ -1,0 +1,35 @@
+{
+    "name": "alquemie/upstream-config",
+    "type": "project",
+    "version": "23.02.16.0",
+    "license": "proprietary",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        },
+        {
+          "type": "composer",
+          "url": "https://alquemie.github.io"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "composer/installers": "^1.3.0",
+        "pantheon-systems/quicksilver-pushback": "^2",
+        "pantheon-systems/wordpress-composer": "^6.0",
+        "roots/soil": "^4.0",
+        "roots/wp-password-bcrypt": "^1.0.0",
+        "vlucas/phpdotenv": "^5.5",
+        "roots/bedrock-autoloader": "^1.0",
+        "wpackagist-plugin/pantheon-advanced-page-cache": "^1.2.0",
+        "wpackagist-plugin/stream": "^3.9.0",
+        "wpackagist-plugin/wp-native-php-sessions": "^1.3",
+        "wpackagist-plugin/wp-redis": "^1.3",
+        "wpackagist-plugin/fluent-smtp":"^2.2",
+        "wpackagist-theme/twentytwentythree":"^1.0"
+    },
+    "require-dev": {
+
+    }
+}
